@@ -54,6 +54,7 @@
       <button id="addBtn">Add</button>
       <button id="resetBtn">Reset to current task list</button>
       <button id="exportBtn">Export JSON</button>
+      <button id="importBtn">Import JSON</button>
     </div>
     <div id="focusBanner" style="width:100%; margin-top:8px; padding:10px 12px; border-radius:12px; border:1px solid #4b3a12; background:linear-gradient(90deg,#2b2108,#3a2d0b); color:#ffe29a; font-weight:700;"></div>
     <div id="mobileTabs" class="mobile-tabs"></div>
@@ -220,6 +221,30 @@
       a.download = 'aadi-kanban-export.json';
       a.click();
       URL.revokeObjectURL(a.href);
+    };
+
+    document.getElementById('importBtn').onclick = async () => {
+      const picker = document.createElement('input');
+      picker.type = 'file';
+      picker.accept = 'application/json,.json';
+      picker.onchange = async () => {
+        const file = picker.files?.[0];
+        if (!file) return;
+        try {
+          const text = await file.text();
+          const data = JSON.parse(text);
+          if (!Array.isArray(data)) throw new Error('Invalid format');
+          const valid = data.every(t => t && typeof t.id === 'string' && typeof t.text === 'string' && typeof t.col === 'string');
+          if (!valid) throw new Error('Invalid task schema');
+          tasks = data;
+          save();
+          render();
+          alert('Kanban imported successfully.');
+        } catch (e) {
+          alert('Import failed. Please use a valid exported Kanban JSON file.');
+        }
+      };
+      picker.click();
     };
 
     window.addEventListener('resize', render);
