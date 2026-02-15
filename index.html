@@ -105,6 +105,7 @@
     let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || initialState();
     let mobileColumn = 'high';
     let draggedTaskId = null;
+    const DRAG_ENABLED = false; // using arrow-based reordering for reliability
 
     function isMobile(){ return window.innerWidth <= 640; }
 
@@ -147,14 +148,16 @@
         const dz = el.querySelector('.dropzone');
         items.forEach(t => dz.appendChild(card(t, focus)));
 
-        dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
-        dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
-        dz.addEventListener('drop', e => {
-          e.preventDefault(); dz.classList.remove('drag-over');
-          const id = e.dataTransfer.getData('text/plain') || draggedTaskId;
-          if (id) moveTask(id, col.id, null, 'end');
-          draggedTaskId = null;
-        });
+        if (DRAG_ENABLED) {
+          dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+          dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+          dz.addEventListener('drop', e => {
+            e.preventDefault(); dz.classList.remove('drag-over');
+            const id = e.dataTransfer.getData('text/plain') || draggedTaskId;
+            if (id) moveTask(id, col.id, null, 'end');
+            draggedTaskId = null;
+          });
+        }
 
         board.appendChild(el);
       });
@@ -187,42 +190,66 @@
       render();
     }
 
+    function moveTaskWithinColumn(taskId, direction) {
+      const currentIndex = tasks.findIndex(t => t.id === taskId);
+      if (currentIndex < 0) return;
+
+      const col = tasks[currentIndex].col;
+      const colIndices = tasks
+        .map((t, i) => (t.col === col ? i : -1))
+        .filter(i => i !== -1);
+
+      const pos = colIndices.indexOf(currentIndex);
+      const targetPos = direction === 'up' ? pos - 1 : pos + 1;
+      if (targetPos < 0 || targetPos >= colIndices.length) return;
+
+      const swapIndex = colIndices[targetPos];
+      [tasks[currentIndex], tasks[swapIndex]] = [tasks[swapIndex], tasks[currentIndex]];
+      save();
+      render();
+    }
+
     function card(t, focus){
       const el = document.createElement('article');
       el.className = 'card';
       if (focus && focus.id === t.id) el.classList.add('focus-card');
-      el.draggable = true;
+      el.draggable = DRAG_ENABLED;
       el.dataset.id = t.id;
       el.dataset.col = t.col;
-      el.innerHTML = `<div>${t.text}</div><div class="meta"><span class="badge ${t.col==='done'?'done':t.priority}">${t.col==='done'?'done':t.priority}</span><div><button data-del="${t.id}" style="padding:2px 8px">✕</button></div></div>`;
+      el.innerHTML = `<div>${t.text}</div><div class="meta"><span class="badge ${t.col==='done'?'done':t.priority}">${t.col==='done'?'done':t.priority}</span><div style="display:flex; gap:6px;"><button data-up="${t.id}" title="Move up" style="padding:2px 8px">↑</button><button data-down="${t.id}" title="Move down" style="padding:2px 8px">↓</button><button data-del="${t.id}" style="padding:2px 8px">✕</button></div></div>`;
 
-      el.addEventListener('dragstart', e => {
-        draggedTaskId = t.id;
-        e.dataTransfer.setData('text/plain', t.id);
-      });
+      if (DRAG_ENABLED) {
+        el.addEventListener('dragstart', e => {
+          draggedTaskId = t.id;
+          e.dataTransfer.setData('text/plain', t.id);
+        });
 
-      el.addEventListener('dragover', e => {
-        e.preventDefault();
-        const rect = el.getBoundingClientRect();
-        const before = e.clientY < rect.top + rect.height / 2;
-        el.classList.toggle('drop-before', before);
-        el.classList.toggle('drop-after', !before);
-      });
+        el.addEventListener('dragover', e => {
+          e.preventDefault();
+          const rect = el.getBoundingClientRect();
+          const before = e.clientY < rect.top + rect.height / 2;
+          el.classList.toggle('drop-before', before);
+          el.classList.toggle('drop-after', !before);
+        });
 
-      el.addEventListener('dragleave', () => {
-        el.classList.remove('drop-before', 'drop-after');
-      });
+        el.addEventListener('dragleave', () => {
+          el.classList.remove('drop-before', 'drop-after');
+        });
 
-      el.addEventListener('drop', e => {
-        e.preventDefault();
-        const id = e.dataTransfer.getData('text/plain') || draggedTaskId;
-        if (!id || id === t.id) return;
-        const rect = el.getBoundingClientRect();
-        const before = e.clientY < rect.top + rect.height / 2;
-        moveTask(id, t.col, t.id, before ? 'before' : 'after');
-        draggedTaskId = null;
-      });
+        el.addEventListener('drop', e => {
+          e.preventDefault();
+          e.stopPropagation(); // prevent parent dropzone handler from also firing (which would push item to column end)
+          const id = e.dataTransfer.getData('text/plain') || draggedTaskId;
+          if (!id || id === t.id) return;
+          const rect = el.getBoundingClientRect();
+          const before = e.clientY < rect.top + rect.height / 2;
+          moveTask(id, t.col, t.id, before ? 'before' : 'after');
+          draggedTaskId = null;
+        });
+      }
 
+      el.querySelector('[data-up]')?.addEventListener('click', () => moveTaskWithinColumn(t.id, 'up'));
+      el.querySelector('[data-down]')?.addEventListener('click', () => moveTaskWithinColumn(t.id, 'down'));
       el.querySelector('[data-del]')?.addEventListener('click', () => {
         tasks = tasks.filter(x => x.id !== t.id); save(); render();
       });
