@@ -71,35 +71,32 @@
       { id:'done', name:'Done' }
     ];
 
-    const seedTasks = [
-      ['Reply to Mike Scanlon about funding.','high'],
-      ['Reach out to Valerie about our homes.','high'],
-      ['Finalize appraisal - reply to Daniel, and then reply to Ambiga.','high'],
-      ['Set up marketing meeting for Windmills USA.','high'],
-      ['Reply to Tom about Leslie / sales position items.','high'],
-      ['Send email to Kartheek Reddy giving him an update on Tapestry.','high'],
-      ['TE Digital Transformation - request team input on tools, bottlenecks, repetitive tasks, and desired automation.','high'],
-      ['Send reply to Josh Worden and full scope of work.','high'],
-      ['Funding for future phase land - lot sales.','high'],
-      ['Reach out to Andi Palacios - Hospitality exec, Mexico City experience.','high'],
-      ['Send AMEX receipts to Steph.','high'],
-      ['Update and send termination agreement to Bailey Brothers.','other'],
-      ['Send email regarding Windmills to Kamal and Ashish (chef Suresh feedback + menu/space changes).','other'],
-      ['Review Villa 28 listing and send details for Villa 2 to be listed (2nd Priority).','other'],
-      ['Tell Christy about the hours for Tapestry model home.','other'],
-      ['Come up with a plan for graphic design; speak with Kamal re: Kashvi & others.','other'],
-      ['Reach out to Bijoy Shetty through Sanjith about Music Foundation vids.','other'],
-      ['Send email to Kamal about Salesforce issues and requirements.','other']
+    const defaultTasks = [
+      { "id": "1o7hxp53", "text": "Reply to Ambiga and accordingly provide direction to Daniel (Kroll)", "priority": "high", "col": "high", "createdAt": 1771141829327 },
+      { "id": "1rzi4ppz", "text": "Send email to Kartheek Reddy giving him an update on Tapestry.", "priority": "high", "col": "high", "createdAt": 1771141711149 },
+      { "id": "1kxzsnow", "text": "Send reply to Josh Worden and full scope of work.", "priority": "high", "col": "high", "createdAt": 1771141711149 },
+      { "id": "0st0kmxs", "text": "Finalize appraisal - reply to Daniel, and then reply to Ambiga.", "priority": "high", "col": "done", "createdAt": 1771141711149 },
+      { "id": "bm8omef0", "text": "Reply to Mike Scanlon about funding.", "priority": "high", "col": "high", "createdAt": 1771141711149 },
+      { "id": "gpocp9wp", "text": "Reply to Tom about Leslie / sales position items.", "priority": "high", "col": "done", "createdAt": 1771141711149 },
+      { "id": "qlx2ytex", "text": "Send AMEX receipts to Steph.", "priority": "high", "col": "high", "createdAt": 1771141711149 },
+      { "id": "9610jo11", "text": "Reach out to Valerie about our homes.", "priority": "high", "col": "high", "createdAt": 1771141711149 },
+      { "id": "f155a7be", "text": "Set up marketing meeting for Windmills USA.", "priority": "high", "col": "high", "createdAt": 1771141711149 },
+      { "id": "aqr8shro", "text": "TE Digital Transformation - request team input on tools, bottlenecks, repetitive tasks, and desired automation.", "priority": "high", "col": "high", "createdAt": 1771141711149 },
+      { "id": "cgxfgf3b", "text": "Reach out to Andi Palacios - Hospitality exec, Mexico City experience.", "priority": "high", "col": "done", "createdAt": 1771141711149 },
+      { "id": "cr7xdkcy", "text": "Funding for future phase land - lot sales.", "priority": "high", "col": "high", "createdAt": 1771141711149 },
+      { "id": "szwmbexw", "text": "Update and send termination agreement to Bailey Brothers.", "priority": "other", "col": "backlog", "createdAt": 1771141711149 },
+      { "id": "z4aafom6", "text": "Send email regarding Windmills to Kamal and Ashish (chef Suresh feedback + menu/space changes).", "priority": "other", "col": "backlog", "createdAt": 1771141711149 },
+      { "id": "qy7voqhy", "text": "Review Villa 28 listing and send details for Villa 2 to be listed (2nd Priority).", "priority": "other", "col": "backlog", "createdAt": 1771141711149 },
+      { "id": "hdj5ey8o", "text": "Tell Christy about the hours for Tapestry model home.", "priority": "other", "col": "backlog", "createdAt": 1771141711149 },
+      { "id": "ktv92lb8", "text": "Come up with a plan for graphic design; speak with Kamal re: Kashvi & others.", "priority": "other", "col": "backlog", "createdAt": 1771141711149 },
+      { "id": "prhzgjml", "text": "Reach out to Bijoy Shetty through Sanjith about Music Foundation vids.", "priority": "other", "col": "backlog", "createdAt": 1771141711149 },
+      { "id": "d92se31g", "text": "Send email to Kamal about Salesforce issues and requirements.", "priority": "other", "col": "backlog", "createdAt": 1771141711149 }
     ];
 
     function uid(){ return Math.random().toString(36).slice(2,10); }
 
     function initialState(){
-      return seedTasks.map(([text,priority]) => ({
-        id: uid(), text, priority,
-        col: priority === 'high' ? 'high' : 'backlog',
-        createdAt: Date.now()
-      }));
+      return defaultTasks.map(t => ({...t, id: t.id || uid()}));
     }
 
     let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || initialState();
