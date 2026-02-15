@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aadi Kanban</title>
+  <style>
+    :root { --bg:#0b1020; --card:#151b2e; --muted:#8ea0c9; --text:#eaf0ff; --accent:#6ea8fe; --done:#34c759; }
+    * { box-sizing: border-box; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    body { margin: 0; background: linear-gradient(120deg,#0b1020,#111b36); color: var(--text); }
+    header { padding: 16px 20px; border-bottom: 1px solid #273457; display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    h1 { margin:0; font-size: 18px; }
+    .muted { color: var(--muted); font-size: 13px; }
+    button, input, select { background:#1c2542; color:var(--text); border:1px solid #334579; border-radius:10px; padding:8px 10px; }
+    button { cursor:pointer; }
+    main { display:grid; grid-template-columns: repeat(4, minmax(230px,1fr)); gap:14px; padding:14px; min-height: calc(100vh - 80px); }
+    .col { background: rgba(21,27,46,.85); border:1px solid #2e3d66; border-radius:14px; padding:10px; display:flex; flex-direction:column; }
+    .col h2 { margin:2px 0 10px; font-size:14px; display:flex; justify-content:space-between; align-items:center; }
+    .dropzone { min-height:120px; display:flex; flex-direction:column; gap:8px; }
+    .card { background:#1a2240; border:1px solid #334579; border-radius:10px; padding:10px; cursor:grab; }
+    .focus-card { border: 2px solid #f6c453; box-shadow: 0 0 0 2px rgba(246,196,83,.2), 0 0 18px rgba(246,196,83,.25); }
+    .card:active { cursor:grabbing; }
+    .card .meta { margin-top:6px; display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--muted); }
+    .badge { padding:2px 8px; border-radius:999px; font-size:11px; border:1px solid #455b94; }
+    .high { color:#ffd38b; border-color:#8a6b34; }
+    .other { color:#b6cffb; }
+    .done { color:#9ff0b2; border-color:#2b8a3e; }
+    .toolbar { display:flex; gap:8px; flex-wrap:wrap; }
+    .drag-over { outline:2px dashed var(--accent); outline-offset:3px; border-radius:10px; }
+    @media (max-width: 1000px){ main{ grid-template-columns: repeat(2,minmax(220px,1fr)); } }
+    @media (max-width: 640px){ main{ grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Kev x Aadi — Local Kanban</h1>
+    <span class="muted">Drag tasks across columns. Auto-saves in this browser.</span>
+    <div class="toolbar">
+      <input id="newTask" placeholder="Add new task..." size="34" />
+      <select id="newPriority">
+        <option value="high">High</option>
+        <option value="other">Other</option>
+      </select>
+      <button id="addBtn">Add</button>
+      <button id="resetBtn">Reset to current task list</button>
+      <button id="exportBtn">Export JSON</button>
+    </div>
+    <div id="focusBanner" style="width:100%; margin-top:8px; padding:10px 12px; border-radius:12px; border:1px solid #4b3a12; background:linear-gradient(90deg,#2b2108,#3a2d0b); color:#ffe29a; font-weight:700;"></div>
+  </header>
+
+  <main id="board"></main>
+
+  <script>
+    const STORAGE_KEY = 'aadi-kanban-v1';
+    const columns = [
+      { id:'backlog', name:'Backlog' },
+      { id:'high', name:'High Priority' },
+      { id:'progress', name:'In Progress' },
+      { id:'done', name:'Done' }
+    ];
+
+    const seedTasks = [
+      ['Reply to Mike Scanlon about funding.','high'],
+      ['Reach out to Valerie about our homes.','high'],
+      ['Finalize appraisal - reply to Daniel, and then reply to Ambiga.','high'],
+      ['Set up marketing meeting for Windmills USA.','high'],
+      ['Reply to Tom about Leslie / sales position items.','high'],
+      ['Send email to Kartheek Reddy giving him an update on Tapestry.','high'],
+      ['TE Digital Transformation - request team input on tools, bottlenecks, repetitive tasks, and desired automation.','high'],
+      ['Send reply to Josh Worden and full scope of work.','high'],
+      ['Funding for future phase land - lot sales.','high'],
+      ['Reach out to Andi Palacios - Hospitality exec, Mexico City experience.','high'],
+      ['Send AMEX receipts to Steph.','high'],
+      ['Update and send termination agreement to Bailey Brothers.','other'],
+      ['Send email regarding Windmills to Kamal and Ashish (chef Suresh feedback + menu/space changes).','other'],
+      ['Review Villa 28 listing and send details for Villa 2 to be listed (2nd Priority).','other'],
+      ['Tell Christy about the hours for Tapestry model home.','other'],
+      ['Come up with a plan for graphic design; speak with Kamal re: Kashvi & others.','other'],
+      ['Reach out to Bijoy Shetty through Sanjith about Music Foundation vids.','other'],
+      ['Send email to Kamal about Salesforce issues and requirements.','other']
+    ];
+
+    function uid(){ return Math.random().toString(36).slice(2,10); }
+
+    function initialState(){
+      return seedTasks.map(([text,priority]) => ({
+        id: uid(), text, priority,
+        col: priority === 'high' ? 'high' : 'backlog',
+        createdAt: Date.now()
+      }));
+    }
+
+    let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || initialState();
+
+    function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks)); }
+
+    function getFocusTask(){
+      return tasks.find(t => t.col === 'high') || null;
+    }
+
+    function render(){
+      const board = document.getElementById('board');
+      board.innerHTML = '';
+
+      const focus = getFocusTask();
+      const focusBanner = document.getElementById('focusBanner');
+      focusBanner.textContent = focus
+        ? `🔥 FOCUS NOW: ${focus.text}`
+        : '✅ No tasks in High Priority right now.';
+
+      columns.forEach(col => {
+        const el = document.createElement('section');
+        el.className = 'col';
+        const items = tasks.filter(t => t.col === col.id);
+        el.innerHTML = `<h2>${col.name} <span class="muted">${items.length}</span></h2><div class="dropzone" data-col="${col.id}"></div>`;
+        const dz = el.querySelector('.dropzone');
+        items.forEach(t => dz.appendChild(card(t, focus)));
+
+        dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+        dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+        dz.addEventListener('drop', e => {
+          e.preventDefault(); dz.classList.remove('drag-over');
+          const id = e.dataTransfer.getData('text/plain');
+          const task = tasks.find(x => x.id === id);
+          if(task){ task.col = col.id; save(); render(); }
+        });
+
+        board.appendChild(el);
+      });
+    }
+
+    function moveWithinColumn(taskId, dir){
+      const idx = tasks.findIndex(x => x.id === taskId);
+      if (idx < 0) return;
+      const col = tasks[idx].col;
+      if (dir === 'up') {
+        for (let j = idx - 1; j >= 0; j--) {
+          if (tasks[j].col === col) {
+            [tasks[j], tasks[idx]] = [tasks[idx], tasks[j]];
+            save(); render();
+            return;
+          }
+        }
+      } else {
+        for (let j = idx + 1; j < tasks.length; j++) {
+          if (tasks[j].col === col) {
+            [tasks[j], tasks[idx]] = [tasks[idx], tasks[j]];
+            save(); render();
+            return;
+          }
+        }
+      }
+    }
+
+    function card(t, focus){
+      const el = document.createElement('article');
+      el.className = 'card';
+      if (focus && focus.id === t.id) el.classList.add('focus-card');
+      el.draggable = true;
+      el.innerHTML = `<div>${t.text}</div><div class="meta"><span class="badge ${t.col==='done'?'done':t.priority}">${t.col==='done'?'done':t.priority}</span><div><button data-up="${t.id}" style="padding:2px 8px">↑</button> <button data-down="${t.id}" style="padding:2px 8px">↓</button> <button data-del="${t.id}" style="padding:2px 8px">✕</button></div></div>`;
+      el.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', t.id));
+      el.querySelector('[data-del]')?.addEventListener('click', () => {
+        tasks = tasks.filter(x => x.id !== t.id); save(); render();
+      });
+      el.querySelector('[data-up]')?.addEventListener('click', () => moveWithinColumn(t.id, 'up'));
+      el.querySelector('[data-down]')?.addEventListener('click', () => moveWithinColumn(t.id, 'down'));
+      return el;
+    }
+
+    document.getElementById('addBtn').onclick = () => {
+      const text = document.getElementById('newTask').value.trim();
+      const priority = document.getElementById('newPriority').value;
+      if(!text) return;
+      tasks.unshift({ id:uid(), text, priority, col: priority==='high' ? 'high' : 'backlog', createdAt: Date.now() });
+      document.getElementById('newTask').value='';
+      save(); render();
+    };
+
+    document.getElementById('newTask').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('addBtn').click(); });
+
+    document.getElementById('resetBtn').onclick = () => {
+      if(confirm('Reset board to latest seeded task list? This overwrites local changes.')){
+        tasks = initialState(); save(); render();
+      }
+    };
+
+    document.getElementById('exportBtn').onclick = () => {
+      const blob = new Blob([JSON.stringify(tasks,null,2)], {type:'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'aadi-kanban-export.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    };
+
+    render();
+  </script>
+</body>
+</html>
