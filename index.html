@@ -110,7 +110,7 @@
     let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || initialState();
     let mobileColumn = 'high';
     let draggedTaskId = null;
-    const DRAG_ENABLED = false; // using arrow-based reordering for reliability
+    const DRAG_ENABLED = true; // drag/drop between columns enabled; arrows for in-column reordering
 
     function isMobile(){ return window.innerWidth <= 640; }
 
@@ -214,19 +214,7 @@
       render();
     }
 
-    function moveTaskAcrossColumns(taskId, direction) {
-      const task = tasks.find(t => t.id === taskId);
-      if (!task) return;
-
-      const colIdx = columns.findIndex(c => c.id === task.col);
-      if (colIdx < 0) return;
-      const targetIdx = direction === 'left' ? colIdx - 1 : colIdx + 1;
-      if (targetIdx < 0 || targetIdx >= columns.length) return;
-
-      task.col = columns[targetIdx].id;
-      save();
-      render();
-    }
+    // cross-column movement is handled by drag/drop on column dropzones
 
     function card(t, focus){
       const el = document.createElement('article');
@@ -235,42 +223,19 @@
       el.draggable = DRAG_ENABLED;
       el.dataset.id = t.id;
       el.dataset.col = t.col;
-      el.innerHTML = `<div>${t.text}</div><div class="meta"><span class="badge ${t.col==='done'?'done':t.priority}">${t.col==='done'?'done':t.priority}</span><div style="display:flex; gap:6px;"><button data-left="${t.id}" title="Move left" style="padding:2px 8px">←</button><button data-up="${t.id}" title="Move up" style="padding:2px 8px">↑</button><button data-down="${t.id}" title="Move down" style="padding:2px 8px">↓</button><button data-right="${t.id}" title="Move right" style="padding:2px 8px">→</button><button data-del="${t.id}" style="padding:2px 8px">✕</button></div></div>`;
+      el.innerHTML = `<div>${t.text}</div><div class="meta"><span class="badge ${t.col==='done'?'done':t.priority}">${t.col==='done'?'done':t.priority}</span><div style="display:flex; gap:6px;"><button data-up="${t.id}" title="Move up" style="padding:2px 8px">↑</button><button data-down="${t.id}" title="Move down" style="padding:2px 8px">↓</button><button data-del="${t.id}" style="padding:2px 8px">✕</button></div></div>`;
 
       if (DRAG_ENABLED) {
+        // Drag is only for moving tasks across columns (drop onto column dropzones).
+        // In-column ordering is intentionally arrow-only for reliability.
         el.addEventListener('dragstart', e => {
           draggedTaskId = t.id;
           e.dataTransfer.setData('text/plain', t.id);
         });
-
-        el.addEventListener('dragover', e => {
-          e.preventDefault();
-          const rect = el.getBoundingClientRect();
-          const before = e.clientY < rect.top + rect.height / 2;
-          el.classList.toggle('drop-before', before);
-          el.classList.toggle('drop-after', !before);
-        });
-
-        el.addEventListener('dragleave', () => {
-          el.classList.remove('drop-before', 'drop-after');
-        });
-
-        el.addEventListener('drop', e => {
-          e.preventDefault();
-          e.stopPropagation(); // prevent parent dropzone handler from also firing (which would push item to column end)
-          const id = e.dataTransfer.getData('text/plain') || draggedTaskId;
-          if (!id || id === t.id) return;
-          const rect = el.getBoundingClientRect();
-          const before = e.clientY < rect.top + rect.height / 2;
-          moveTask(id, t.col, t.id, before ? 'before' : 'after');
-          draggedTaskId = null;
-        });
       }
 
-      el.querySelector('[data-left]')?.addEventListener('click', () => moveTaskAcrossColumns(t.id, 'left'));
       el.querySelector('[data-up]')?.addEventListener('click', () => moveTaskWithinColumn(t.id, 'up'));
       el.querySelector('[data-down]')?.addEventListener('click', () => moveTaskWithinColumn(t.id, 'down'));
-      el.querySelector('[data-right]')?.addEventListener('click', () => moveTaskAcrossColumns(t.id, 'right'));
       el.querySelector('[data-del]')?.addEventListener('click', () => {
         tasks = tasks.filter(x => x.id !== t.id); save(); render();
       });
