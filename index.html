@@ -229,7 +229,19 @@
       render();
     }
 
-    // cross-column movement is handled by drag/drop on column dropzones
+    function moveTaskAcrossColumns(taskId, direction) {
+      const task = tasks.find(t => t.id === taskId);
+      if (!task) return;
+
+      const colIdx = columns.findIndex(c => c.id === task.col);
+      if (colIdx < 0) return;
+      const targetIdx = direction === 'left' ? colIdx - 1 : colIdx + 1;
+      if (targetIdx < 0 || targetIdx >= columns.length) return;
+
+      task.col = columns[targetIdx].id;
+      save();
+      render();
+    }
 
     function card(t, focus){
       const el = document.createElement('article');
@@ -238,7 +250,10 @@
       el.draggable = DRAG_ENABLED;
       el.dataset.id = t.id;
       el.dataset.col = t.col;
-      el.innerHTML = `<div>${t.text}</div><div class="meta"><span class="badge ${t.col==='done'?'done':t.priority}">${t.col==='done'?'done':t.priority}</span><div style="display:flex; gap:6px;"><button data-up="${t.id}" title="Move up" style="padding:2px 8px">↑</button><button data-down="${t.id}" title="Move down" style="padding:2px 8px">↓</button><button data-del="${t.id}" style="padding:2px 8px">✕</button></div></div>`;
+      const mobileMove = isMobile()
+        ? `<button data-left="${t.id}" title="Move left" style="padding:2px 8px">←</button><button data-right="${t.id}" title="Move right" style="padding:2px 8px">→</button>`
+        : '';
+      el.innerHTML = `<div>${t.text}</div><div class="meta"><span class="badge ${t.col==='done'?'done':t.priority}">${t.col==='done'?'done':t.priority}</span><div style="display:flex; gap:6px;">${mobileMove}<button data-up="${t.id}" title="Move up" style="padding:2px 8px">↑</button><button data-down="${t.id}" title="Move down" style="padding:2px 8px">↓</button><button data-del="${t.id}" style="padding:2px 8px">✕</button></div></div>`;
 
       if (DRAG_ENABLED) {
         // Drag is only for moving tasks across columns (drop onto column dropzones).
@@ -249,6 +264,8 @@
         });
       }
 
+      el.querySelector('[data-left]')?.addEventListener('click', () => moveTaskAcrossColumns(t.id, 'left'));
+      el.querySelector('[data-right]')?.addEventListener('click', () => moveTaskAcrossColumns(t.id, 'right'));
       el.querySelector('[data-up]')?.addEventListener('click', () => moveTaskWithinColumn(t.id, 'up'));
       el.querySelector('[data-down]')?.addEventListener('click', () => moveTaskWithinColumn(t.id, 'down'));
       el.querySelector('[data-del]')?.addEventListener('click', () => {
