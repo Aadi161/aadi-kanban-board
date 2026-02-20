@@ -1,12 +1,5 @@
 [
   {
-    "id": "gouthamapp1",
-    "text": "Reply to Goutham and send email to appraisers based on Goutham’s feedback.",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1771353300000
-  },
-  {
     "id": "veereshi20",
     "text": "Send I-20 to Veeresh",
     "priority": "high",
@@ -56,20 +49,6 @@
     "createdAt": 1771141711149
   },
   {
-    "id": "qlx2ytex",
-    "text": "Send AMEX receipts to Steph.",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1771141711149
-  },
-  {
-    "id": "9610jo11",
-    "text": "Reach out to Valerie about our homes.",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1771141711149
-  },
-  {
     "id": "f155a7be",
     "text": "Set up marketing meeting for Windmills USA.",
     "priority": "high",
@@ -91,32 +70,74 @@
     "createdAt": 1771141711149
   },
   {
-    "id": "cr7xdkcy",
-    "text": "Funding for future phase land - lot sales.",
+    "id": "gouthamapp1",
+    "text": "Reply to Goutham and send email to appraisers based on Goutham’s feedback.",
     "priority": "high",
-    "col": "high",
+    "col": "done",
+    "createdAt": 1771353300000
+  },
+  {
+    "id": "qlx2ytex",
+    "text": "Send AMEX receipts to Steph.",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "9610jo11",
+    "text": "Reach out to Valerie about our homes.",
+    "priority": "high",
+    "col": "done",
     "createdAt": 1771141711149
   },
   {
     "id": "emmaind01",
     "text": "Plan Emma’s induction - schedule & employment paperwork.",
     "priority": "high",
-    "col": "high",
+    "col": "done",
     "createdAt": 1771260800000
   },
   {
     "id": "manikdesign1",
     "text": "Send response to Manik and team on design sign off for Kush Saxena.",
     "priority": "high",
-    "col": "high",
+    "col": "done",
     "createdAt": 1771372800000
   },
   {
     "id": "stephcoit1",
     "text": "Reply to Stephanie on geotech for Coit vistas.",
     "priority": "high",
-    "col": "high",
+    "col": "done",
     "createdAt": 1771372800001
+  },
+  {
+    "id": "stephappraisal1",
+    "text": "Respond to Steph’s email about appraisal on future phase property.",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771524000000
+  },
+  {
+    "id": "cashpayables1",
+    "text": "Check payables incoming + current cash available.",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771524600000
+  },
+  {
+    "id": "marblevilla21",
+    "text": "Make sure marble has been paid for and shipped for Villa 2.",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771524600001
+  },
+  {
+    "id": "cr7xdkcy",
+    "text": "Funding for future phase land - lot sales.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771141711149
   },
   {
     "id": "h1bbuild1",
@@ -131,27 +152,6 @@
     "priority": "high",
     "col": "high",
     "createdAt": 1771523400000
-  },
-  {
-    "id": "stephappraisal1",
-    "text": "Respond to Steph’s email about appraisal on future phase property.",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1771524000000
-  },
-  {
-    "id": "cashpayables1",
-    "text": "Check payables incoming + current cash available.",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1771524600000
-  },
-  {
-    "id": "marblevilla21",
-    "text": "Make sure marble has been paid for and shipped for Villa 2.",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1771524600001
   },
   {
     "id": "szwmbexw",
