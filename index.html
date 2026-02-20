@@ -74,6 +74,8 @@
     const GITHUB_REPO = 'aadi-kanban-board';
     const GITHUB_BRANCH = 'main';
     const GITHUB_DATA_PATH = 'kanban-data.json';
+    const AUTO_PULL_MS = 15000;
+    const REMOTE_FINGERPRINT_KEY = 'aadi-kanban-remote-fp';
 
     const columns = [
       { id:'backlog', name:'Backlog' },
@@ -272,20 +274,35 @@
       return btoa(unescape(encodeURIComponent(str)));
     }
 
-    async function pullFromGitHub(){
-      setGitStatus('Pulling from GitHub...');
+    function fingerprintTasks(list){
+      return JSON.stringify(list);
+    }
+
+    async function pullFromGitHub(silent = false){
+      if (!silent) setGitStatus('Pulling from GitHub...');
       try {
         const res = await fetch(`${GITHUB_DATA_PATH}?ts=${Date.now()}`, { cache: 'no-store' });
         if (!res.ok) throw new Error('No live sync file found yet. Push once first.');
         const data = await res.json();
         if (!Array.isArray(data)) throw new Error('Invalid kanban-data.json format');
-        tasks = data;
-        save();
-        render();
-        setGitStatus('Pulled latest live state from GitHub');
+
+        const remoteFp = fingerprintTasks(data);
+        const prevFp = localStorage.getItem(REMOTE_FINGERPRINT_KEY) || '';
+
+        if (remoteFp !== prevFp) {
+          tasks = data;
+          save();
+          render();
+          localStorage.setItem(REMOTE_FINGERPRINT_KEY, remoteFp);
+          setGitStatus(silent ? 'Auto-synced latest GitHub live state' : 'Pulled latest live state from GitHub');
+        } else if (!silent) {
+          setGitStatus('Already up to date with GitHub live state');
+        }
       } catch (e) {
-        setGitStatus(`Pull failed: ${e.message}`);
-        alert(`GitHub pull failed: ${e.message}`);
+        if (!silent) {
+          setGitStatus(`Pull failed: ${e.message}`);
+          alert(`GitHub pull failed: ${e.message}`);
+        }
       }
     }
 
@@ -328,8 +345,9 @@
           throw new Error(`GitHub API ${putRes.status}: ${errText.slice(0,180)}`);
         }
 
+        localStorage.setItem(REMOTE_FINGERPRINT_KEY, fingerprintTasks(tasks));
         setGitStatus('Pushed live state to GitHub ✅');
-        alert('Live board synced to GitHub (kanban-data.json).');
+        alert('Live board synced to GitHub (kanban-data.json). Other open boards will auto-refresh shortly.');
       } catch (e) {
         setGitStatus(`Push failed: ${e.message}`);
         alert(`GitHub push failed: ${e.message}`);
@@ -393,7 +411,9 @@
 
     render();
     // best-effort auto-load of live GitHub state if available
-    pullFromGitHub();
+    pullFromGitHub(true);
+    // auto-refresh from GitHub so other devices update after a push
+    setInterval(() => pullFromGitHub(true), AUTO_PULL_MS);
   </script>
 </body>
 </html>
