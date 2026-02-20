@@ -229,19 +229,7 @@
       render();
     }
 
-    function moveTaskAcrossColumns(taskId, direction) {
-      const task = tasks.find(t => t.id === taskId);
-      if (!task) return;
-
-      const colIdx = columns.findIndex(c => c.id === task.col);
-      if (colIdx < 0) return;
-      const targetIdx = direction === 'left' ? colIdx - 1 : colIdx + 1;
-      if (targetIdx < 0 || targetIdx >= columns.length) return;
-
-      task.col = columns[targetIdx].id;
-      save();
-      render();
-    }
+    // cross-column moves now use per-task status dropdown
 
     function card(t, focus){
       const el = document.createElement('article');
@@ -250,10 +238,8 @@
       el.draggable = DRAG_ENABLED;
       el.dataset.id = t.id;
       el.dataset.col = t.col;
-      const mobileMove = isMobile()
-        ? `<button data-left="${t.id}" title="Move left" style="padding:2px 8px">←</button><button data-right="${t.id}" title="Move right" style="padding:2px 8px">→</button>`
-        : '';
-      el.innerHTML = `<div>${t.text}</div><div class="meta"><span class="badge ${t.col==='done'?'done':t.priority}">${t.col==='done'?'done':t.priority}</span><div style="display:flex; gap:6px;">${mobileMove}<button data-up="${t.id}" title="Move up" style="padding:2px 8px">↑</button><button data-down="${t.id}" title="Move down" style="padding:2px 8px">↓</button><button data-del="${t.id}" style="padding:2px 8px">✕</button></div></div>`;
+      const statusOptions = columns.map(c => `<option value="${c.id}" ${c.id===t.col?'selected':''}>${c.name}</option>`).join('');
+      el.innerHTML = `<div>${t.text}</div><div class="meta"><span class="badge ${t.col==='done'?'done':t.priority}">${t.col==='done'?'done':t.priority}</span><div style="display:flex; gap:6px; align-items:center;"><select data-status="${t.id}" title="Move to column" style="padding:2px 6px; min-height:28px;">${statusOptions}</select><button data-up="${t.id}" title="Move up" style="padding:2px 8px">↑</button><button data-down="${t.id}" title="Move down" style="padding:2px 8px">↓</button><button data-del="${t.id}" style="padding:2px 8px">✕</button></div></div>`;
 
       if (DRAG_ENABLED) {
         // Drag is only for moving tasks across columns (drop onto column dropzones).
@@ -264,8 +250,10 @@
         });
       }
 
-      el.querySelector('[data-left]')?.addEventListener('click', () => moveTaskAcrossColumns(t.id, 'left'));
-      el.querySelector('[data-right]')?.addEventListener('click', () => moveTaskAcrossColumns(t.id, 'right'));
+      el.querySelector('[data-status]')?.addEventListener('change', (e) => {
+        const newCol = e.target.value;
+        if (newCol && newCol !== t.col) moveTask(t.id, newCol, null, 'end');
+      });
       el.querySelector('[data-up]')?.addEventListener('click', () => moveTaskWithinColumn(t.id, 'up'));
       el.querySelector('[data-down]')?.addEventListener('click', () => moveTaskWithinColumn(t.id, 'down'));
       el.querySelector('[data-del]')?.addEventListener('click', () => {
