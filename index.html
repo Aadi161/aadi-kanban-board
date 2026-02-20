@@ -57,6 +57,9 @@
       <button id="resetBtn">Reset to current task list</button>
       <button id="exportBtn">Export JSON</button>
       <button id="importBtn">Import JSON</button>
+      <button id="pullGitBtn">Pull GitHub Live</button>
+      <button id="pushGitBtn">Push Live to GitHub</button>
+      <span id="gitStatus" class="muted">GitHub sync idle</span>
     </div>
     <div id="focusBanner" style="width:100%; margin-top:8px; padding:10px 12px; border-radius:12px; border:1px solid #4b3a12; background:linear-gradient(90deg,#2b2108,#3a2d0b); color:#ffe29a; font-weight:700;"></div>
     <div id="mobileTabs" class="mobile-tabs"></div>
@@ -66,6 +69,12 @@
 
   <script>
     const STORAGE_KEY = 'aadi-kanban-v2';
+    const GITHUB_TOKEN_KEY = 'aadi-kanban-github-token';
+    const GITHUB_OWNER = 'Aadi161';
+    const GITHUB_REPO = 'aadi-kanban-board';
+    const GITHUB_BRANCH = 'main';
+    const GITHUB_DATA_PATH = 'kanban-data.json';
+
     const columns = [
       { id:'backlog', name:'Backlog' },
       { id:'high', name:'High Priority' },
@@ -246,6 +255,87 @@
       return el;
     }
 
+    function setGitStatus(text){
+      const el = document.getElementById('gitStatus');
+      if (el) el.textContent = text;
+    }
+
+    function getGithubToken(){
+      const existing = localStorage.getItem(GITHUB_TOKEN_KEY) || '';
+      const token = prompt('Enter GitHub token with repo scope (stored only in this browser):', existing);
+      if (!token) return null;
+      localStorage.setItem(GITHUB_TOKEN_KEY, token.trim());
+      return token.trim();
+    }
+
+    function toBase64Unicode(str){
+      return btoa(unescape(encodeURIComponent(str)));
+    }
+
+    async function pullFromGitHub(){
+      setGitStatus('Pulling from GitHub...');
+      try {
+        const res = await fetch(`${GITHUB_DATA_PATH}?ts=${Date.now()}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error('No live sync file found yet. Push once first.');
+        const data = await res.json();
+        if (!Array.isArray(data)) throw new Error('Invalid kanban-data.json format');
+        tasks = data;
+        save();
+        render();
+        setGitStatus('Pulled latest live state from GitHub');
+      } catch (e) {
+        setGitStatus(`Pull failed: ${e.message}`);
+        alert(`GitHub pull failed: ${e.message}`);
+      }
+    }
+
+    async function pushToGitHub(){
+      const token = getGithubToken();
+      if (!token) return;
+
+      setGitStatus('Pushing live state to GitHub...');
+      const apiBase = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_DATA_PATH}`;
+
+      try {
+        let sha = null;
+        const existingRes = await fetch(apiBase + `?ref=${GITHUB_BRANCH}`, {
+          headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' }
+        });
+        if (existingRes.ok) {
+          const existing = await existingRes.json();
+          sha = existing.sha || null;
+        }
+
+        const payload = {
+          message: `sync: kanban live state ${new Date().toISOString()}`,
+          content: toBase64Unicode(JSON.stringify(tasks, null, 2)),
+          branch: GITHUB_BRANCH,
+          sha
+        };
+
+        const putRes = await fetch(apiBase, {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/vnd.github+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!putRes.ok) {
+          const errText = await putRes.text();
+          throw new Error(`GitHub API ${putRes.status}: ${errText.slice(0,180)}`);
+        }
+
+        setGitStatus('Pushed live state to GitHub ✅');
+        alert('Live board synced to GitHub (kanban-data.json).');
+      } catch (e) {
+        setGitStatus(`Push failed: ${e.message}`);
+        alert(`GitHub push failed: ${e.message}`);
+      }
+    }
+
     document.getElementById('addBtn').onclick = () => {
       const text = document.getElementById('newTask').value.trim();
       const priority = document.getElementById('newPriority').value;
@@ -296,9 +386,14 @@
       picker.click();
     };
 
+    document.getElementById('pullGitBtn').onclick = pullFromGitHub;
+    document.getElementById('pushGitBtn').onclick = pushToGitHub;
+
     window.addEventListener('resize', render);
 
     render();
+    // best-effort auto-load of live GitHub state if available
+    pullFromGitHub();
   </script>
 </body>
 </html>

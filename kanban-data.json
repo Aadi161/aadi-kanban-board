@@ -1,0 +1,205 @@
+[
+  {
+    "id": "gouthamapp1",
+    "text": "Reply to Goutham and send email to appraisers based on Goutham’s feedback.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771353300000
+  },
+  {
+    "id": "veereshi20",
+    "text": "Send I-20 to Veeresh",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771142400000
+  },
+  {
+    "id": "1o7hxp53",
+    "text": "Reply to Ambiga and accordingly provide direction to Daniel (Kroll)",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771141829327
+  },
+  {
+    "id": "1rzi4ppz",
+    "text": "Send email to Kartheek Reddy giving him an update on Tapestry.",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "1kxzsnow",
+    "text": "Send reply to Josh Worden and full scope of work.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "0st0kmxs",
+    "text": "Finalize appraisal - reply to Daniel, and then reply to Ambiga.",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "bm8omef0",
+    "text": "Reply to Mike Scanlon about funding.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "gpocp9wp",
+    "text": "Reply to Tom about Leslie / sales position items.",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "qlx2ytex",
+    "text": "Send AMEX receipts to Steph.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "9610jo11",
+    "text": "Reach out to Valerie about our homes.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "f155a7be",
+    "text": "Set up marketing meeting for Windmills USA.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "aqr8shro",
+    "text": "TE Digital Transformation - request team input on tools, bottlenecks, repetitive tasks, and desired automation.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "cgxfgf3b",
+    "text": "Reach out to Andi Palacios - Hospitality exec, Mexico City experience.",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "cr7xdkcy",
+    "text": "Funding for future phase land - lot sales.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "emmaind01",
+    "text": "Plan Emma’s induction - schedule & employment paperwork.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771260800000
+  },
+  {
+    "id": "manikdesign1",
+    "text": "Send response to Manik and team on design sign off for Kush Saxena.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771372800000
+  },
+  {
+    "id": "stephcoit1",
+    "text": "Reply to Stephanie on geotech for Coit vistas.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771372800001
+  },
+  {
+    "id": "h1bbuild1",
+    "text": "H-1B - reach out to immigration lawyers & The Build Fellowship.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771522200000
+  },
+  {
+    "id": "harrisburg1",
+    "text": "Pay fees for Harrisburg University",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771523400000
+  },
+  {
+    "id": "stephappraisal1",
+    "text": "Respond to Steph’s email about appraisal on future phase property.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771524000000
+  },
+  {
+    "id": "cashpayables1",
+    "text": "Check payables incoming + current cash available.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771524600000
+  },
+  {
+    "id": "marblevilla21",
+    "text": "Make sure marble has been paid for and shipped for Villa 2.",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771524600001
+  },
+  {
+    "id": "szwmbexw",
+    "text": "Update and send termination agreement to Bailey Brothers.",
+    "priority": "other",
+    "col": "backlog",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "z4aafom6",
+    "text": "Send email regarding Windmills to Kamal and Ashish (chef Suresh feedback + menu/space changes).",
+    "priority": "other",
+    "col": "backlog",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "qy7voqhy",
+    "text": "Review Villa 28 listing and send details for Villa 2 to be listed (2nd Priority).",
+    "priority": "other",
+    "col": "backlog",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "hdj5ey8o",
+    "text": "Tell Christy about the hours for Tapestry model home.",
+    "priority": "other",
+    "col": "backlog",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "ktv92lb8",
+    "text": "Come up with a plan for graphic design; speak with Kamal re: Kashvi & others.",
+    "priority": "other",
+    "col": "backlog",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "prhzgjml",
+    "text": "Reach out to Bijoy Shetty through Sanjith about Music Foundation vids.",
+    "priority": "other",
+    "col": "backlog",
+    "createdAt": 1771141711149
+  },
+  {
+    "id": "d92se31g",
+    "text": "Send email to Kamal about Salesforce issues and requirements.",
+    "priority": "other",
+    "col": "backlog",
+    "createdAt": 1771141711149
+  }
+]
