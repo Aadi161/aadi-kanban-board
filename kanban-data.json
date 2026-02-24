@@ -14,13 +14,6 @@
     "createdAt": 1771141711149
   },
   {
-    "id": "bm8omef0",
-    "text": "Reply to Mike Scanlon about funding.",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1771141711149
-  },
-  {
     "id": "8ikaxl6t",
     "text": "Send email to Kartheek Reddy with list of important prospects whom he should follow up with",
     "priority": "high",
@@ -166,6 +159,13 @@
     "priority": "high",
     "col": "done",
     "createdAt": 1771826596460
+  },
+  {
+    "id": "bm8omef0",
+    "text": "Reply to Mike Scanlon about funding.",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771141711149
   },
   {
     "id": "cr7xdkcy",
