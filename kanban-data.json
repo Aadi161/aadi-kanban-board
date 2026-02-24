@@ -14,6 +14,13 @@
     "createdAt": 1771141711149
   },
   {
+    "id": "8ikaxl6t",
+    "text": "Send email to Kartheek Reddy with list of important prospects whom he should follow up with",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1771826700834
+  },
+  {
     "id": "cjp516xf",
     "text": "Send email to Chandra - lead from Denver",
     "priority": "high",
@@ -42,11 +49,11 @@
     "createdAt": 1771141711149
   },
   {
-    "id": "8ikaxl6t",
-    "text": "Send email to Kartheek Reddy with list of important prospects whom he should follow up with",
+    "id": "4a01e6ik",
+    "text": "Send thank you message to Buddy & Jonathan (Ice House)",
     "priority": "high",
     "col": "high",
-    "createdAt": 1771826700834
+    "createdAt": 1771920289270
   },
   {
     "id": "0st0kmxs",
@@ -54,13 +61,6 @@
     "priority": "high",
     "col": "done",
     "createdAt": 1771141711149
-  },
-  {
-    "id": "9ergiepg",
-    "text": "Reply to Kristi's emails with regards to accounting matters",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1771826596460
   },
   {
     "id": "gpocp9wp",
@@ -152,6 +152,13 @@
     "priority": "high",
     "col": "done",
     "createdAt": 1771524600001
+  },
+  {
+    "id": "9ergiepg",
+    "text": "Reply to Kristi's emails with regards to accounting matters",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771826596460
   },
   {
     "id": "cr7xdkcy",
