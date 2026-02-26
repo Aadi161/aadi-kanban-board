@@ -1,10 +1,17 @@
 [
   {
-    "id": "hth8srqp",
-    "text": "Kush Saxena - review and send concept phase agreement + speak to Ganesh about invoice",
+    "id": "p0sqotlo",
+    "text": "Syed - set up meeting for concept feedback and create definitive agreement for design and construction",
     "priority": "high",
     "col": "high",
-    "createdAt": 1771923577784
+    "createdAt": 1772133193118
+  },
+  {
+    "id": "ydy55t15",
+    "text": "Kush Saxena - update agreements, create new invoice",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1772133171866
   },
   {
     "id": "1kxzsnow",
@@ -14,11 +21,11 @@
     "createdAt": 1771141711149
   },
   {
-    "id": "oac03v67",
-    "text": "Reply to Sonia about feedback on Dezeen",
+    "id": "hh5iyzbj",
+    "text": "Reply to Sneha regarding audit relating to MOA for Coit Vistas",
     "priority": "high",
     "col": "high",
-    "createdAt": 1771996006616
+    "createdAt": 1772132504826
   },
   {
     "id": "veereshi20",
@@ -40,13 +47,6 @@
     "priority": "high",
     "col": "done",
     "createdAt": 1771141711149
-  },
-  {
-    "id": "4a01e6ik",
-    "text": "Send thank you message to Buddy & Jonathan (Ice House)",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1771920289270
   },
   {
     "id": "0st0kmxs",
@@ -187,6 +187,34 @@
     "priority": "high",
     "col": "done",
     "createdAt": 1771826700834
+  },
+  {
+    "id": "g0n5z6vo",
+    "text": "Send offer letter to Laurel",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1772121094359
+  },
+  {
+    "id": "4a01e6ik",
+    "text": "Send thank you message to Buddy & Jonathan (Ice House)",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771920289270
+  },
+  {
+    "id": "hth8srqp",
+    "text": "Kush Saxena - review and send concept phase agreement + speak to Ganesh about invoice",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771923577784
+  },
+  {
+    "id": "oac03v67",
+    "text": "Reply to Sonia about feedback on Dezeen",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771996006616
   },
   {
     "id": "cr7xdkcy",
