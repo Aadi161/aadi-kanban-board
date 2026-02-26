@@ -14,18 +14,11 @@
     "createdAt": 1771141711149
   },
   {
-    "id": "8ikaxl6t",
-    "text": "Send email to Kartheek Reddy with list of important prospects whom he should follow up with",
+    "id": "oac03v67",
+    "text": "Reply to Sonia about feedback on Dezeen",
     "priority": "high",
     "col": "high",
-    "createdAt": 1771826700834
-  },
-  {
-    "id": "cjp516xf",
-    "text": "Send email to Chandra - lead from Denver",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1771826648706
+    "createdAt": 1771996006616
   },
   {
     "id": "veereshi20",
@@ -67,13 +60,6 @@
     "text": "Reply to Tom about Leslie / sales position items.",
     "priority": "high",
     "col": "done",
-    "createdAt": 1771141711149
-  },
-  {
-    "id": "f155a7be",
-    "text": "Set up marketing meeting for Windmills USA.",
-    "priority": "high",
-    "col": "high",
     "createdAt": 1771141711149
   },
   {
@@ -175,25 +161,39 @@
     "createdAt": 1771948589957
   },
   {
-    "id": "cr7xdkcy",
-    "text": "Funding for future phase land - lot sales.",
+    "id": "harrisburg1",
+    "text": "Pay fees for Harrisburg University",
     "priority": "high",
-    "col": "high",
-    "createdAt": 1771141711149
+    "col": "done",
+    "createdAt": 1771523400000
   },
   {
     "id": "h1bbuild1",
     "text": "H-1B - reach out to immigration lawyers & The Build Fellowship.",
     "priority": "high",
-    "col": "high",
+    "col": "done",
     "createdAt": 1771522200000
   },
   {
-    "id": "harrisburg1",
-    "text": "Pay fees for Harrisburg University",
+    "id": "cjp516xf",
+    "text": "Send email to Chandra - lead from Denver",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771826648706
+  },
+  {
+    "id": "8ikaxl6t",
+    "text": "Send email to Kartheek Reddy with list of important prospects whom he should follow up with",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1771826700834
+  },
+  {
+    "id": "cr7xdkcy",
+    "text": "Funding for future phase land - lot sales.",
     "priority": "high",
     "col": "high",
-    "createdAt": 1771523400000
+    "createdAt": 1771141711149
   },
   {
     "id": "szwmbexw",
