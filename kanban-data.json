@@ -1,10 +1,10 @@
 [
   {
-    "id": "p0sqotlo",
-    "text": "Syed - set up meeting for concept feedback and create definitive agreement for design and construction",
+    "id": "8kd6j222",
+    "text": "Plan Laurel's onboarding and official start date",
     "priority": "high",
     "col": "high",
-    "createdAt": 1772133193118
+    "createdAt": 1772390632032
   },
   {
     "id": "ydy55t15",
@@ -12,6 +12,13 @@
     "priority": "high",
     "col": "high",
     "createdAt": 1772133171866
+  },
+  {
+    "id": "p0sqotlo",
+    "text": "Syed - set up meeting for concept feedback and create definitive agreement for design and construction",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1772133193118
   },
   {
     "id": "1kxzsnow",
