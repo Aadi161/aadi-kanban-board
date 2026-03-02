@@ -28,13 +28,6 @@
     "createdAt": 1771141711149
   },
   {
-    "id": "hh5iyzbj",
-    "text": "Reply to Sneha regarding audit relating to MOA for Coit Vistas",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1772132504826
-  },
-  {
     "id": "veereshi20",
     "text": "Send I-20 to Veeresh",
     "priority": "high",
@@ -222,6 +215,13 @@
     "priority": "high",
     "col": "done",
     "createdAt": 1771996006616
+  },
+  {
+    "id": "hh5iyzbj",
+    "text": "Reply to Sneha regarding audit relating to MOA for Coit Vistas",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1772132504826
   },
   {
     "id": "cr7xdkcy",
