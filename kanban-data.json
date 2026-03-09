@@ -1,12 +1,5 @@
 [
   {
-    "id": "8kd6j222",
-    "text": "Plan Laurel's onboarding and official start date",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1772390632032
-  },
-  {
     "id": "ydy55t15",
     "text": "Kush Saxena - update agreements, create new invoice",
     "priority": "high",
@@ -222,6 +215,13 @@
     "priority": "high",
     "col": "done",
     "createdAt": 1772132504826
+  },
+  {
+    "id": "8kd6j222",
+    "text": "Plan Laurel's onboarding and official start date",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1772390632032
   },
   {
     "id": "cr7xdkcy",
