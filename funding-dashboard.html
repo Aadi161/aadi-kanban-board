@@ -118,16 +118,14 @@
           <div class="card"><div class="k-label">Annual Surplus / (Deficit)</div><div class="k-value" id="sNet">0</div></div>
         </div>
 
-        <h3 class="title" style="margin-top:12px;">Immediate Action Board (72 Hours)</h3>
+        <h3 class="title" style="margin-top:12px;">Live Priority Tasks (Auto-synced from GitHub Kanban)</h3>
         <table>
-          <thead><tr><th>Priority</th><th>Action</th><th>Owner</th><th>Deadline</th></tr></thead>
-          <tbody>
-            <tr><td><span class="pill bad">P0</span></td><td>Secure minimum $500K bridge draw</td><td>CEO + Finance</td><td>Today</td></tr>
-            <tr><td><span class="pill warn">P1</span></td><td>Lock Kush receivable date in writing</td><td>COO</td><td>24h</td></tr>
-            <tr><td><span class="pill warn">P1</span></td><td>Renegotiate construction + marketing payment timing</td><td>PMO</td><td>48h</td></tr>
-            <tr><td><span class="pill">P2</span></td><td>Publish daily 13-week treasury tracker</td><td>Finance</td><td>72h</td></tr>
+          <thead><tr><th>Priority</th><th>Task</th><th>Status</th></tr></thead>
+          <tbody id="kanbanRows">
+            <tr><td colspan="3" class="note">Loading from kanban-data.json…</td></tr>
           </tbody>
         </table>
+        <div class="note" style="margin-top:8px;">Done tasks are automatically hidden here. <a href="./index.html" style="color:#93c5fd;">Open Kanban board</a></div>
       </div>
 
       <div class="card">
@@ -219,8 +217,36 @@
         'Current confidence: Low (bridge action required immediately).';
     }
 
+    async function loadKanbanTasks() {
+      const tbody = $('kanbanRows');
+      try {
+        const res = await fetch('./kanban-data.json?ts=' + Date.now());
+        const items = await res.json();
+        const open = (items || []).filter(t => t && t.col !== 'done');
+        open.sort((a,b) => {
+          const pa = a.priority === 'high' ? 0 : 1;
+          const pb = b.priority === 'high' ? 0 : 1;
+          if (pa !== pb) return pa - pb;
+          return (a.createdAt || 0) - (b.createdAt || 0);
+        });
+        const top = open.slice(0, 10);
+        if (!top.length) {
+          tbody.innerHTML = '<tr><td colspan="3" class="good">No open priority tasks 🎉</td></tr>';
+          return;
+        }
+        tbody.innerHTML = top.map(t => {
+          const pClass = t.priority === 'high' ? 'bad' : 'warn';
+          const status = t.col === 'high' ? 'High Priority' : 'Other';
+          return `<tr><td><span class="pill ${pClass}">${(t.priority || 'other').toUpperCase()}</span></td><td>${t.text || ''}</td><td>${status}</td></tr>`;
+        }).join('');
+      } catch (e) {
+        tbody.innerHTML = '<tr><td colspan="3" class="bad">Could not load kanban-data.json</td></tr>';
+      }
+    }
+
     document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', recalc));
     recalc();
+    loadKanbanTasks();
   </script>
 </body>
 </html>
