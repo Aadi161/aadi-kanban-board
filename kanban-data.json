@@ -1,19 +1,5 @@
 [
   {
-    "id": "ydy55t15",
-    "text": "Kush Saxena - update agreements, create new invoice",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1772133171866
-  },
-  {
-    "id": "p0sqotlo",
-    "text": "Syed - set up meeting for concept feedback and create definitive agreement for design and construction",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1772133193118
-  },
-  {
     "id": "manik-specs-1773037863",
     "text": "Finalize and send out email to Manik, Neha and team regarding specs",
     "priority": "high",
@@ -78,7 +64,7 @@
   },
   {
     "id": "gouthamapp1",
-    "text": "Reply to Goutham and send email to appraisers based on Goutham\u2019s feedback.",
+    "text": "Reply to Goutham and send email to appraisers based on Goutham’s feedback.",
     "priority": "high",
     "col": "done",
     "createdAt": 1771353300000
@@ -99,7 +85,7 @@
   },
   {
     "id": "emmaind01",
-    "text": "Plan Emma\u2019s induction - schedule & employment paperwork.",
+    "text": "Plan Emma’s induction - schedule & employment paperwork.",
     "priority": "high",
     "col": "done",
     "createdAt": 1771260800000
@@ -120,7 +106,7 @@
   },
   {
     "id": "stephappraisal1",
-    "text": "Respond to Steph\u2019s email about appraisal on future phase property.",
+    "text": "Respond to Steph’s email about appraisal on future phase property.",
     "priority": "high",
     "col": "done",
     "createdAt": 1771524000000
@@ -229,6 +215,20 @@
     "priority": "high",
     "col": "done",
     "createdAt": 1772390632032
+  },
+  {
+    "id": "ydy55t15",
+    "text": "Kush Saxena - update agreements, create new invoice",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1772133171866
+  },
+  {
+    "id": "p0sqotlo",
+    "text": "Syed - set up meeting for concept feedback and create definitive agreement for design and construction",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1772133193118
   },
   {
     "id": "cr7xdkcy",
