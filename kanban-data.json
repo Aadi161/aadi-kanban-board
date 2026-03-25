@@ -1,5 +1,75 @@
 [
   {
+    "id": "trl2wpuj",
+    "text": "Reply to email from Akshay Kothari",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774394882690
+  },
+  {
+    "id": "phh0teys",
+    "text": "set up meeting with Thomas weekly",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774395979262
+  },
+  {
+    "id": "x6yd7hzz",
+    "text": "Set up HOA, manage ourselves, start charging homeowners",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774394921460
+  },
+  {
+    "id": "igws73n1",
+    "text": "Reach out to Manik about next steps on Kush and Syed's homes",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774394845565
+  },
+  {
+    "id": "0rpc0pab",
+    "text": "Set up weekly meeting with Kamal with agenda",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774393830131
+  },
+  {
+    "id": "5fueep70",
+    "text": "set up dashboards to review with Kamal",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774393794219
+  },
+  {
+    "id": "99hxq7pn",
+    "text": "Set up GTM session with Laurel and Christy",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774393313309
+  },
+  {
+    "id": "x6b73ije",
+    "text": "set up session to talk about Total Environment with LAutel",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774393299625
+  },
+  {
+    "id": "fxfkluoi",
+    "text": "set up weekly marketing meetings with christy",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774393278989
+  },
+  {
+    "id": "po8zesjd",
+    "text": "Set up daily standup with Laurel",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774393269215
+  },
+  {
     "id": "manik-specs-1773037863",
     "text": "Finalize and send out email to Manik, Neha and team regarding specs",
     "priority": "high",
