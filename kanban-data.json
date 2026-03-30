@@ -1,10 +1,38 @@
 [
   {
-    "id": "trl2wpuj",
-    "text": "Reply to email from Akshay Kothari",
+    "id": "6t9bybsl",
+    "text": "Discuss and take call on Notion",
     "priority": "high",
     "col": "high",
-    "createdAt": 1774394882690
+    "createdAt": 1774582800951
+  },
+  {
+    "id": "g53ox4ed",
+    "text": "Take next action on Websites",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774576080331
+  },
+  {
+    "id": "uhpde25d",
+    "text": "Look at drawings and draft reply to Syed",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774576060849
+  },
+  {
+    "id": "xf97i8a4",
+    "text": "Go through Jenn's docs for Ambiga",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774554187000
+  },
+  {
+    "id": "uvwmuqo1",
+    "text": "Do a study of moving Windmills to Dallas",
+    "priority": "high",
+    "col": "high",
+    "createdAt": 1774537016186
   },
   {
     "id": "phh0teys",
@@ -21,13 +49,6 @@
     "createdAt": 1774394921460
   },
   {
-    "id": "igws73n1",
-    "text": "Reach out to Manik about next steps on Kush and Syed's homes",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1774394845565
-  },
-  {
     "id": "0rpc0pab",
     "text": "Set up weekly meeting with Kamal with agenda",
     "priority": "high",
@@ -40,34 +61,6 @@
     "priority": "high",
     "col": "high",
     "createdAt": 1774393794219
-  },
-  {
-    "id": "99hxq7pn",
-    "text": "Set up GTM session with Laurel and Christy",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1774393313309
-  },
-  {
-    "id": "x6b73ije",
-    "text": "set up session to talk about Total Environment with LAutel",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1774393299625
-  },
-  {
-    "id": "fxfkluoi",
-    "text": "set up weekly marketing meetings with christy",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1774393278989
-  },
-  {
-    "id": "po8zesjd",
-    "text": "Set up daily standup with Laurel",
-    "priority": "high",
-    "col": "high",
-    "createdAt": 1774393269215
   },
   {
     "id": "manik-specs-1773037863",
@@ -299,6 +292,55 @@
     "priority": "high",
     "col": "done",
     "createdAt": 1772133193118
+  },
+  {
+    "id": "trl2wpuj",
+    "text": "Reply to email from Akshay Kothari",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1774394882690
+  },
+  {
+    "id": "99hxq7pn",
+    "text": "Set up GTM session with Laurel and Christy",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1774393313309
+  },
+  {
+    "id": "igws73n1",
+    "text": "Reach out to Manik about next steps on Kush and Syed's homes",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1774394845565
+  },
+  {
+    "id": "fxfkluoi",
+    "text": "set up weekly marketing meetings with christy",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1774393278989
+  },
+  {
+    "id": "po8zesjd",
+    "text": "Set up daily standup with Laurel",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1774393269215
+  },
+  {
+    "id": "x6b73ije",
+    "text": "set up session to talk about Total Environment with LAutel",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1774393299625
+  },
+  {
+    "id": "t7m6rpxb",
+    "text": "Respond to build on lot lead - Austin",
+    "priority": "high",
+    "col": "done",
+    "createdAt": 1774456169198
   },
   {
     "id": "cr7xdkcy",
